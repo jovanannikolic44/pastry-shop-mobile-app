@@ -47,7 +47,7 @@ public class ModelPreferencesManager {
     public static void remove() {
         SharedPreferences.Editor editor = preferences.edit();
         editor.clear();
-        editor.commit();
+        editor.apply();
     }
 
     public static boolean contains(String key) {

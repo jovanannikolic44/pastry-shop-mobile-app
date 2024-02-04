@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-    private static final Type userListType = new TypeToken<List<User>>(){}.getType();
+    public static final Type userListType = new TypeToken<List<User>>(){}.getType();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +34,15 @@ public class MainActivity extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
 
-        // predefined users
-        List<User> predefinedUsers = new ArrayList<>();
-        predefinedUsers.add(new User("Ana", "Marinkovic", "0678899334", "Adresa 1", "ana", "ana123", "kupac"));
-        predefinedUsers.add(new User("Milos", "Markovic", "0678899339", "Adresa 2", "milos", "milos123", "kupac"));
-        predefinedUsers.add(new User("Nenad", "Novakovic", "0678899332", "Adresa 3", "nenad", "nenad123", "zaposleni"));
-        ModelPreferencesManager.put(predefinedUsers, "users");
+        List<User> predefinedUsers = ModelPreferencesManager.get("users", MainActivity.userListType);
+
+        if(predefinedUsers == null) {
+            predefinedUsers = new ArrayList<>();
+            predefinedUsers.add(new User("Ana", "Marinkovic", "0678899334", "Adresa 1", "ana", "ana123", "kupac"));
+            predefinedUsers.add(new User("Milos", "Markovic", "0678899339", "Adresa 2", "milos", "milos123", "kupac"));
+            predefinedUsers.add(new User("Nenad", "Novakovic", "0678899332", "Adresa 3", "nenad", "nenad123", "zaposleni"));
+            ModelPreferencesManager.put(predefinedUsers, "users");
+        }
     }
 
     public void logIn(View view) {
@@ -66,6 +69,12 @@ public class MainActivity extends AppCompatActivity {
             return;
         }
         ModelPreferencesManager.put(loggedUser, "loggedInUser");
-        Toast.makeText(this, "Ulogovan.", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, ShowItems.class);
+        startActivity(intent);
+    }
+
+    public void registerLink(View view) {
+        Intent intent = new Intent(this, RegistrationActivity.class);
+        startActivity(intent);
     }
 }

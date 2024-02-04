@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -13,49 +12,70 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="@color/backgroundColor"
-        android:padding="25dp"
+        android:padding="20dp"
         android:layout_centerInParent="true">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Slatki zalogaji"
+            android:text="Registracija"
             android:textSize="24sp"
             android:textStyle="bold"
-            android:padding="20dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/black"/>
 
         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-
             <TableRow>
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_account_circle_24"
-                    android:layout_gravity="center_vertical"/>
-
                 <EditText
-                    android:id="@+id/username"
-                    android:layout_width="300dp"
+                    android:id="@+id/regName"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:hint="Ime"
+                    android:textColorHint="@color/gray"/>
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/regLastName"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:hint="Prezime"
+                    android:textColorHint="@color/gray"/>
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/regPhoneNumber"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:hint="Broj telefona"
+                    android:textColorHint="@color/gray"/>
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/regAddress"
+                    android:layout_width="350dp"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/gray"
+                    android:hint="Adresa"
+                    android:textColorHint="@color/gray"/>
+            </TableRow>
+            <TableRow>
+                <EditText
+                    android:id="@+id/regUsername"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     android:hint="Korisnicko ime"
                     android:textColorHint="@color/gray"/>
             </TableRow>
-
             <TableRow>
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:src="@drawable/baseline_lock_24"
-                    android:layout_gravity="center_vertical"/>
-
                 <EditText
-                    android:id="@+id/password"
-                    android:layout_width="300dp"
+                    android:id="@+id/regPassword"
+                    android:layout_width="350dp"
                     android:layout_height="wrap_content"
                     android:textColor="@color/gray"
                     android:hint="Lozinka"
@@ -64,27 +84,25 @@
             </TableRow>
         </TableLayout>
         <Button
-            android:id="@+id/logInButton"
+            android:id="@+id/regButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Prijavi se"
+            android:text="Registruj se"
             android:backgroundTint="@color/buttonColor"
             android:textColor="@color/white"
             android:layout_gravity="center"
             android:layout_marginTop="20dp"
-            android:onClick="logIn"/>
-
+            android:onClick="register"/>
         <TextView
-            android:id="@+id/registerLink"
+            android:id="@+id/logInLink"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nemate nalog? Registrujte se"
+            android:text="Nazad na prijavu"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
             android:textColor="@color/black"
-            android:textStyle="italic"
+            android:layout_marginTop="10px"
             android:clickable="true"
-            android:onClick="registerLink"/>
+            android:onClick="backToLogIn"/>
     </LinearLayout>
 
 </RelativeLayout>
