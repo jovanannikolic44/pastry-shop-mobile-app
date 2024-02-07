@@ -143,8 +143,33 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="20dp"></View>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="KOLICINA:"
+                android:textSize="18sp"
+                android:textColor="@color/black"></TextView>
+
+            <EditText
+                android:id="@+id/itemQuantity"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:hint="1"
+                android:textSize="16sp"
+                android:textColor="@color/black"
+                android:inputType="number"></EditText>
+
+            <Button
+                android:id="@+id/orderButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Naruci"
+                android:backgroundTint="@color/buttonColor"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:onClick="orderItem"></Button>
+
         </LinearLayout>
-        
 
     </ScrollView>
 
