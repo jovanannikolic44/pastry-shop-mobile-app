@@ -52,22 +52,6 @@
 
     </androidx.appcompat.widget.Toolbar>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:scrollbars="vertical"
-        android:layout_below="@id/header"
-        android:layout_above="@id/footer">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/itemsLayout">
-        </LinearLayout>
-    </ScrollView>
-
     <LinearLayout
         android:id="@+id/footer"
         android:layout_width="match_parent"

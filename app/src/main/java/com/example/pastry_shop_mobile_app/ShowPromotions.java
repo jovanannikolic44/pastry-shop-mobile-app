@@ -22,7 +22,7 @@ public class ShowPromotions extends AppCompatActivity {
     private ImageView nextImageToShow;
     private TextView nextTitleToShow;
     private TextView nextContentToShow;
-    private List<Promotion> predefinedPromotions;
+    private List<Promotion> allPromotions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,29 +35,29 @@ public class ShowPromotions extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
 
-        predefinedPromotions = ModelPreferencesManager.get("promotions", ShowItems.promotionListType);
-        if(predefinedPromotions != null) {
+        allPromotions = ModelPreferencesManager.get("promotions", ShowItems.promotionListType);
+        if(allPromotions != null) {
             nextImageToShow = findViewById(R.id.imageToShow);
             nextTitleToShow = findViewById(R.id.title);
             nextContentToShow = findViewById(R.id.content);
 
-            nextImageToShow.setImageResource(predefinedPromotions.get(pageNumber).getImageUrl());
-            nextTitleToShow.setText(predefinedPromotions.get(pageNumber).getName());
-            nextContentToShow.setText(predefinedPromotions.get(pageNumber).getDescription());
+            nextImageToShow.setImageResource(allPromotions.get(pageNumber).getImageUrl());
+            nextTitleToShow.setText(allPromotions.get(pageNumber).getName());
+            nextContentToShow.setText(allPromotions.get(pageNumber).getDescription());
         }
     }
 
     public void showNextPage(View view) {
-        pageNumber = (pageNumber + 1) % predefinedPromotions.size();
-        nextImageToShow.setImageResource(predefinedPromotions.get(pageNumber).getImageUrl());
-        nextTitleToShow.setText(predefinedPromotions.get(pageNumber).getName());
-        nextContentToShow.setText(predefinedPromotions.get(pageNumber).getDescription());
+        pageNumber = (pageNumber + 1) % allPromotions.size();
+        nextImageToShow.setImageResource(allPromotions.get(pageNumber).getImageUrl());
+        nextTitleToShow.setText(allPromotions.get(pageNumber).getName());
+        nextContentToShow.setText(allPromotions.get(pageNumber).getDescription());
     }
 
     public void showPreviousPage(View view) {
-        pageNumber = (pageNumber - 1 + predefinedPromotions.size()) % predefinedPromotions.size();
-        nextImageToShow.setImageResource(predefinedPromotions.get(pageNumber).getImageUrl());
-        nextTitleToShow.setText(predefinedPromotions.get(pageNumber).getName());
-        nextContentToShow.setText(predefinedPromotions.get(pageNumber).getDescription());
+        pageNumber = (pageNumber - 1 + allPromotions.size()) % allPromotions.size();
+        nextImageToShow.setImageResource(allPromotions.get(pageNumber).getImageUrl());
+        nextTitleToShow.setText(allPromotions.get(pageNumber).getName());
+        nextContentToShow.setText(allPromotions.get(pageNumber).getDescription());
     }
 }

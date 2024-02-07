@@ -62,12 +62,12 @@ public class ShowItems extends AppCompatActivity {
 
         if(predefinedCakes == null) {
             predefinedCakes = new ArrayList<>();
-            predefinedCakes.add(new Item("1", "COKOLADNA TORTA", "Torta napravljena od najfinije cokolade.", 2000, new String[]{"3 jaja", "6 kasika secera", "3 kasike ulja", "3 kasike mleka", "3 kasike kakaoa", "3 kasike brasna"}, "torta", R.drawable.promotion1));
-            predefinedCakes.add(new Item("2", "VOCNA TORTA", "Osvezavajuca torta od raznolikog sezonskog voca.", 3000, new String[]{"5 belanaca", "220g secera", "600ml slatke pavlake", "400g svezeg sezonskog voca", "1 kasika scera u prahu", "50gr badema"}, "torta", R.drawable.promotion1));
-            predefinedCakes.add(new Item("3", "TORTA SA JAGODAMA", "Osvezavajuca torta sa jagodama i pudingom.", 3000, new String[]{"200gr keksa", "100ml mlevenih badema i lesnika", "100gr maslaca", "300ml slatke pavlake", "300ml pavlake za kuvanje", "150gr secera u prahu", "10gr zelatina u prahu", "3 kasike soka od limuna", "500gr jagoda"}, "torta", R.drawable.promotion1));
-            predefinedCakes.add(new Item("4", "TORTA OD COKOLADICA", "Specijalna cokoladna torta sa vasim omiljenim cokoladicama.", 3000, new String[]{"cokoladice po zelji"}, "torta", R.drawable.promotion1));
-            predefinedCakes.add(new Item("5", "BOMBA", "Neponovljiva torta koja je izdrzala test vremena.", 4000, new String[]{"250gr maslaca", "300g mlevenog keksa", "200gr oraha", "6 jaja", "150ml soka od breskve", "200g secera", "12 kasika secera", "6 kasika secera za karamel"}, "torta", R.drawable.promotion1));
-            predefinedCakes.add(new Item("6", "REFORMA", "Kraljica medju tortama - najlepsa cokoladna torta", 4000, new String[]{"12 jaja", "320g secera", "320g oraha", "100gr cokolade", "250gr maslaca"}, "torta", R.drawable.promotion1));
+            predefinedCakes.add(new Item("1", "COKOLADNA TORTA", "Torta napravljena od najfinije cokolade.", 2000, new String[]{"3 jaja", "6 kasika secera", "3 kasike ulja", "3 kasike mleka", "3 kasike kakaoa", "3 kasike brasna"}, "torta", R.drawable.chocolate_cake));
+            predefinedCakes.add(new Item("2", "VOCNA TORTA", "Osvezavajuca torta od raznolikog sezonskog voca.", 3000, new String[]{"5 belanaca", "220g secera", "600ml slatke pavlake", "400g svezeg sezonskog voca", "1 kasika scera u prahu", "50gr badema"}, "torta", R.drawable.fruit_cake));
+            predefinedCakes.add(new Item("3", "TORTA SA JAGODAMA", "Osvezavajuca torta sa jagodama i pudingom.", 3000, new String[]{"200gr keksa", "100ml mlevenih badema i lesnika", "100gr maslaca", "300ml slatke pavlake", "300ml pavlake za kuvanje", "150gr secera u prahu", "10gr zelatina u prahu", "3 kasike soka od limuna", "500gr jagoda"}, "torta", R.drawable.strawberries_cake));
+            predefinedCakes.add(new Item("4", "TORTA OD COKOLADICA", "Specijalna cokoladna torta sa vasim omiljenim cokoladicama.", 3000, new String[]{"cokoladice po zelji"}, "torta", R.drawable.cake_with_chocolate));
+            predefinedCakes.add(new Item("5", "BOMBA", "Neponovljiva torta koja je izdrzala test vremena.", 4000, new String[]{"250gr maslaca", "300g mlevenog keksa", "200gr oraha", "6 jaja", "150ml soka od breskve", "200g secera", "12 kasika secera", "6 kasika secera za karamel"}, "torta", R.drawable.bomba_cake));
+            predefinedCakes.add(new Item("6", "REFORMA", "Kraljica medju tortama - najlepsa cokoladna torta", 4000, new String[]{"12 jaja", "320g secera", "320g oraha", "100gr cokolade", "250gr maslaca"}, "torta", R.drawable.reforma_cake));
             ModelPreferencesManager.put(predefinedCakes, "cakes");
         }
 
@@ -75,12 +75,12 @@ public class ShowItems extends AppCompatActivity {
 
         if(predefinedCookies == null) {
             predefinedCookies = new ArrayList<>();
-            predefinedCookies.add(new Item("7", "BROWNIES", "Kolaci sa punim ukusom cokolade.", 400, new String[]{"100gr margarina", "400gr cokolade", "4 jaja", "140gr secera", "150gr brasna", "150gr oraha", "1 kasicica cimeta"}, "kolac", R.drawable.promotion1));
-            predefinedCookies.add(new Item("8", "COOKIES", "Hrskavi kolacici sa mrvicama cokolade.", 250, new String[]{"85gr maslaca", "1 jaje", "85gr secera", "1 kesica vanilinog secera", "150gr brasna", "100g cokolade", "1 kasicica soli", "1 kasicica praska za pecivo"}, "kolac", R.drawable.promotion1));
-            predefinedCookies.add(new Item("9", "BAJADERA", "Jedan od najstarijih kolaca, ali i dalje nezamenljiv.", 500, new String[]{"650gr secera", "18 kasika vode", "210gr margarina", "250gr mlevenih oraha", "250gr mlevenog keksa", "100gr cokolade", "100gr cokolade za kuvanje", "20gr margarina", "3 kasike mleka", "3 kasike ulja"}, "kolac", R.drawable.promotion1));
-            predefinedCookies.add(new Item("10", "RAFAELO KUGLICE", "Sjajni ukus kokosa.", 500, new String[]{"200g vode", "500g secera", "500g mleka u prahu", "250g margarina", "400g kokosa", "100g lesnika"}, "kolac", R.drawable.promotion1));
-            predefinedCookies.add(new Item("11", "MILKA KOCKE", "Lagan kolac sa lesnikom i Milka cokoladom.", 400, new String[]{"7 jaja", "200g secera", "2 kasike ulja", "100g mlevenog lesnika", "1 kasika brasna", "5g praska za pecivo", "800ml mleka", "120g gustina", "10g vanilin secera", "250g maslaca", "160g mlecne Milka cokolade", "100g bele Milka cokolade", "200ml slatke pavlake", "1 kasika kisele pavlake"}, "kolac", R.drawable.promotion1));
-            predefinedCookies.add(new Item("12", "TRILECE", "Kolac koji morate da probate!", 350, new String[]{"6 jaja", "100gr secera", "200gr brasna", "1/2 praska za pecivo", "1 vanilin secer", "400ml slatke pavlake", "300ml kondenzovanog mleka", "800ml mleka", "300gr karamel krema"}, "kolac", R.drawable.promotion1));
+            predefinedCookies.add(new Item("7", "BROWNIES", "Kolaci sa punim ukusom cokolade.", 400, new String[]{"100gr margarina", "400gr cokolade", "4 jaja", "140gr secera", "150gr brasna", "150gr oraha", "1 kasicica cimeta"}, "kolac", R.drawable.promotion3));
+            predefinedCookies.add(new Item("8", "COOKIES", "Hrskavi kolacici sa mrvicama cokolade.", 250, new String[]{"85gr maslaca", "1 jaje", "85gr secera", "1 kesica vanilinog secera", "150gr brasna", "100g cokolade", "1 kasicica soli", "1 kasicica praska za pecivo"}, "kolac", R.drawable.cookies));
+            predefinedCookies.add(new Item("9", "BAJADERA", "Jedan od najstarijih kolaca, ali i dalje nezamenljiv.", 500, new String[]{"650gr secera", "18 kasika vode", "210gr margarina", "250gr mlevenih oraha", "250gr mlevenog keksa", "100gr cokolade", "100gr cokolade za kuvanje", "20gr margarina", "3 kasike mleka", "3 kasike ulja"}, "kolac", R.drawable.bajadera));
+            predefinedCookies.add(new Item("10", "RAFAELO KUGLICE", "Sjajni ukus kokosa.", 500, new String[]{"200g vode", "500g secera", "500g mleka u prahu", "250g margarina", "400g kokosa", "100g lesnika"}, "kolac", R.drawable.rafaelo_kuglice));
+            predefinedCookies.add(new Item("11", "MILKA KOCKE", "Lagan kolac sa lesnikom i Milka cokoladom.", 400, new String[]{"7 jaja", "200g secera", "2 kasike ulja", "100g mlevenog lesnika", "1 kasika brasna", "5g praska za pecivo", "800ml mleka", "120g gustina", "10g vanilin secera", "250g maslaca", "160g mlecne Milka cokolade", "100g bele Milka cokolade", "200ml slatke pavlake", "1 kasika kisele pavlake"}, "kolac", R.drawable.milka_kocke));
+            predefinedCookies.add(new Item("12", "TRILECE", "Kolac koji morate da probate!", 350, new String[]{"6 jaja", "100gr secera", "200gr brasna", "1/2 praska za pecivo", "1 vanilin secer", "400ml slatke pavlake", "300ml kondenzovanog mleka", "800ml mleka", "300gr karamel krema"}, "kolac", R.drawable.trilece));
             ModelPreferencesManager.put(predefinedCookies, "cookies");
         }
     }
@@ -99,7 +99,6 @@ public class ShowItems extends AppCompatActivity {
 
     public void showItems(View view) {
         if(pageNumber == 0 || pageNumber == 1) {
-            // show Cakes and Cookies
             if("SVE TORTE".equals(allButtonTexts[pageNumber])) {
                 ModelPreferencesManager.put("cakes", "cookiesOrCakes");
                 Intent intent = new Intent(this, ShowCakes.class);
