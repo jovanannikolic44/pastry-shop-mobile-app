@@ -25,10 +25,6 @@ import java.util.List;
 public class ShowCakes extends AppCompatActivity {
     private String cakesOrCookies = "";
     private List<Item> allItems;
-    private LinearLayout itemsLayout;
-    private ImageView itemImage;
-    private TextView itemTitle;
-    private CardView itemsCardView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,17 +40,16 @@ public class ShowCakes extends AppCompatActivity {
         cakesOrCookies = ModelPreferencesManager.get("cookiesOrCakes", String.class);
         allItems = ModelPreferencesManager.get(cakesOrCookies, ShowItems.itemListType);
 
-        // show all existing cakes
-        itemsLayout = findViewById(R.id.itemsLayout);
+        LinearLayout itemsLayout = findViewById(R.id.itemsLayout);
 
         for(int i = 0; i < allItems.size(); i++) {
             final int itemIndex = i;
-            itemImage = new ImageView(this);
+            ImageView itemImage = new ImageView(this);
             itemImage.setLayoutParams(new LinearLayout.LayoutParams(400, 400));
             itemImage.setBackgroundResource(R.color.white);
             itemImage.setImageResource(allItems.get(i).getImageUrl());
 
-            itemTitle = new TextView(this);
+            TextView itemTitle = new TextView(this);
             itemTitle.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
             itemTitle.setText(allItems.get(i).getName());
             itemTitle.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14);
@@ -71,7 +66,7 @@ public class ShowCakes extends AppCompatActivity {
                 }
             });
 
-            itemsCardView = new CardView(this);
+            CardView itemsCardView = new CardView(this);
             LinearLayout.LayoutParams itemCardLayoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 400);
             if(i == 0)
                 itemCardLayoutParams.setMargins(0, 100, 0, 50);
