@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,14 +12,17 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.pastry_shop_mobile_app.conversion.ModelPreferencesManager;
+import com.example.pastry_shop_mobile_app.models.Promotion;
+
+import java.util.List;
+
 public class ShowPromotions extends AppCompatActivity {
     private static int pageNumber = 0;
     private ImageView nextImageToShow;
     private TextView nextTitleToShow;
     private TextView nextContentToShow;
-    private int[] allImages = {R.drawable.promotion1, R.drawable.promotion2, R.drawable.promotion3};
-    private String[] allTitles = {"UZ TORTU, I KOLAC", "POVOLJNIJE ZA MLADENCE", "KO NE VOLI COKOLADNE KOLACE?"};
-    private String[] allContent = {"Uz kupljenu tortu na dva ili vise spratova dobija se gratis jedan kolac po izboru.", "Tokom ovog meseca traje popust za narucene mladenacke torte.", "Kupovinom cokoladnih kolaca, dobijate duplo!"};
+    private List<Promotion> predefinedPromotions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,26 +35,29 @@ public class ShowPromotions extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
 
-        nextImageToShow = findViewById(R.id.imageToShow);
-        nextTitleToShow = findViewById(R.id.title);
-        nextContentToShow = findViewById(R.id.content);
+        predefinedPromotions = ModelPreferencesManager.get("promotions", ShowItems.promotionListType);
+        if(predefinedPromotions != null) {
+            nextImageToShow = findViewById(R.id.imageToShow);
+            nextTitleToShow = findViewById(R.id.title);
+            nextContentToShow = findViewById(R.id.content);
 
-        nextImageToShow.setImageResource(allImages[pageNumber]);
-        nextTitleToShow.setText(allTitles[pageNumber]);
-        nextContentToShow.setText(allContent[pageNumber]);
+            nextImageToShow.setImageResource(predefinedPromotions.get(pageNumber).getImageUrl());
+            nextTitleToShow.setText(predefinedPromotions.get(pageNumber).getName());
+            nextContentToShow.setText(predefinedPromotions.get(pageNumber).getDescription());
+        }
     }
 
     public void showNextPage(View view) {
-        pageNumber = (pageNumber + 1) % allImages.length;
-        nextImageToShow.setImageResource(allImages[pageNumber]);
-        nextTitleToShow.setText(allTitles[pageNumber]);
-        nextContentToShow.setText(allContent[pageNumber]);
+        pageNumber = (pageNumber + 1) % predefinedPromotions.size();
+        nextImageToShow.setImageResource(predefinedPromotions.get(pageNumber).getImageUrl());
+        nextTitleToShow.setText(predefinedPromotions.get(pageNumber).getName());
+        nextContentToShow.setText(predefinedPromotions.get(pageNumber).getDescription());
     }
 
     public void showPreviousPage(View view) {
-        pageNumber = (pageNumber - 1 + allImages.length) % allImages.length;
-        nextImageToShow.setImageResource(allImages[pageNumber]);
-        nextTitleToShow.setText(allTitles[pageNumber]);
-        nextContentToShow.setText(allContent[pageNumber]);
+        pageNumber = (pageNumber - 1 + predefinedPromotions.size()) % predefinedPromotions.size();
+        nextImageToShow.setImageResource(predefinedPromotions.get(pageNumber).getImageUrl());
+        nextTitleToShow.setText(predefinedPromotions.get(pageNumber).getName());
+        nextContentToShow.setText(predefinedPromotions.get(pageNumber).getDescription());
     }
 }

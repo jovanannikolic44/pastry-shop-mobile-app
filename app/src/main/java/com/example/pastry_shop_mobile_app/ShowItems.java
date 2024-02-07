@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -99,9 +100,18 @@ public class ShowItems extends AppCompatActivity {
     public void showItems(View view) {
         if(pageNumber == 0 || pageNumber == 1) {
             // show Cakes and Cookies
+            if("SVE TORTE".equals(allButtonTexts[pageNumber])) {
+                ModelPreferencesManager.put("cakes", "cookiesOrCakes");
+                Intent intent = new Intent(this, ShowCakes.class);
+                startActivity(intent);
+            }
+            else if("SVI KOLACI".equals(allButtonTexts[pageNumber])) {
+                ModelPreferencesManager.put("cookies", "cookiesOrCakes");
+                Intent intent = new Intent(this, ShowCakes.class);
+                startActivity(intent);
+            }
         }
         else {
-            // show promotions
             Intent intent = new Intent(this, ShowPromotions.class);
             startActivity(intent);
         }
