@@ -2,6 +2,7 @@ package com.example.pastry_shop_mobile_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -97,5 +98,15 @@ public class ShowBasket extends AppCompatActivity {
     public void confirmOrder(View view) {
         ModelPreferencesManager.deleteKey("orders_" + loggedUser.getUsername());
         Toast.makeText(this, "Potvrdjena porudzbina.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void homePage(View view) {
+        Intent intent = new Intent(this, ShowItems.class);
+        startActivity(intent);
     }
 }

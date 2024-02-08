@@ -120,4 +120,14 @@ public class ShowItems extends AppCompatActivity {
         Intent intent = new Intent(this, ShowBasket.class);
         startActivity(intent);
     }
+
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void userProfile(View view) {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
+    }
 }

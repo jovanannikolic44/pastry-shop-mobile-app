@@ -2,6 +2,7 @@ package com.example.pastry_shop_mobile_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -59,5 +60,20 @@ public class ShowPromotions extends AppCompatActivity {
         nextImageToShow.setImageResource(allPromotions.get(pageNumber).getImageUrl());
         nextTitleToShow.setText(allPromotions.get(pageNumber).getName());
         nextContentToShow.setText(allPromotions.get(pageNumber).getDescription());
+    }
+
+    public void showBasket(View view) {
+        Intent intent = new Intent(this, ShowBasket.class);
+        startActivity(intent);
+    }
+
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void userProfile(View view) {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
     }
 }

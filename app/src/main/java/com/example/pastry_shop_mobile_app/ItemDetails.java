@@ -2,6 +2,7 @@ package com.example.pastry_shop_mobile_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.TypedValue;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.pastry_shop_mobile_app.conversion.ModelPreferencesManager;
 import com.example.pastry_shop_mobile_app.models.Basket;
+import com.example.pastry_shop_mobile_app.models.Comments;
 import com.example.pastry_shop_mobile_app.models.Item;
 import com.example.pastry_shop_mobile_app.models.Promotion;
 import com.example.pastry_shop_mobile_app.models.User;
@@ -29,6 +31,7 @@ import java.util.List;
 
 public class ItemDetails extends AppCompatActivity {
     public static final Type basketListType = new TypeToken<List<Basket>>(){}.getType();
+    public static final Type commentsListType = new TypeToken<List<Comments>>(){}.getType();
     private int orderId = 1;
     private int commentId = 1;
     private Item itemToShow;
@@ -47,14 +50,6 @@ public class ItemDetails extends AppCompatActivity {
 
         orderId = ModelPreferencesManager.contains("orderId") ? ModelPreferencesManager.get("orderId", Integer.class) : 1;
         commentId = ModelPreferencesManager.contains("commentId") ? ModelPreferencesManager.get("commentId", Integer.class) : 1;
-
-        // get ids from storage
-//        }
-//        System.out.println("ORDER ID " + orderId);
-//        commentId = ModelPreferencesManager.get("commentId", Integer.class);
-
-//        ModelPreferencesManager.put(orderId, "orderId");
-//        ModelPreferencesManager.put(commentId, "commentId");
 
         itemToShow = ModelPreferencesManager.get("itemToShow", Item.class);
 
@@ -78,6 +73,22 @@ public class ItemDetails extends AppCompatActivity {
             ingredients.setTextSize(TypedValue.COMPLEX_UNIT_SP, 16);
             ingredients.setTextColor(getResources().getColor(R.color.black));
             ingredientsLayout.addView(ingredients);
+        }
+
+        // prikaz komentara
+        List<Comments> allComments = ModelPreferencesManager.get(itemToShow.getId(), ItemDetails.commentsListType);
+        if(allComments == null) {
+            return;
+        }
+        LinearLayout commentsLayout = findViewById(R.id.commentsLayout);
+        TextView noComments = findViewById(R.id.noComments);
+        commentsLayout.removeView(noComments);
+        for(int i = 0; i < allComments.size(); i++) {
+            TextView showComments = new TextView(this);
+            showComments.setText(allComments.get(i).getUsername() + ": " + allComments.get(i).getComment());
+            showComments.setTextSize(18);
+            showComments.setTextColor(getResources().getColor(R.color.black));
+            commentsLayout.addView(showComments);
         }
     }
 
@@ -107,5 +118,43 @@ public class ItemDetails extends AppCompatActivity {
         ModelPreferencesManager.put(orderId, "orderId");
 
         Toast.makeText(this, "Narudzbina je evidentirana. Mozete je naci u korpi.", Toast.LENGTH_SHORT).show();
+    }
+
+    public void saveComment(View view) {
+        if(loggedUser == null)
+            return;
+
+        String commentText = findViewById(R.id.comment).toString();
+        if("".equals(commentText)) {
+            Toast.makeText(this, "Niste uneli komentar.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        List<Comments> allComments = ModelPreferencesManager.get(itemToShow.getId(), ItemDetails.commentsListType);
+        if(allComments == null) {
+            allComments = new ArrayList<>();
+        }
+        Comments newComment = new Comments(commentId, loggedUser.getUsername(), commentText);
+
+        allComments.add(newComment);
+        ModelPreferencesManager.put(allComments, itemToShow.getId());
+
+        commentId++;
+        ModelPreferencesManager.put(commentId, "commentId");
+    }
+
+    public void showBasket(View view) {
+        Intent intent = new Intent(this, ShowBasket.class);
+        startActivity(intent);
+    }
+
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void userProfile(View view) {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
     }
 }

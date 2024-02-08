@@ -27,7 +27,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_basket_24_img" />
+                    android:src="@drawable/ic_basket_24_img"
+                    android:onClick="showBasket"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -39,12 +40,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_user_24_img" />
+                    android:src="@drawable/ic_user_24_img"
+                    android:onClick="userProfile"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_logout_24_img" />
+                    android:src="@drawable/ic_logout_24_img"
+                    android:onClick="logOut"/>
 
             </LinearLayout>
 

@@ -82,4 +82,19 @@ public class ShowCakes extends AppCompatActivity {
             itemsLayout.addView(itemsCardView);
         }
     }
+
+    public void showBasket(View view) {
+        Intent intent = new Intent(this, ShowBasket.class);
+        startActivity(intent);
+    }
+
+    public void logOut(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    public void userProfile(View view) {
+        Intent intent = new Intent(this, UserProfile.class);
+        startActivity(intent);
+    }
 }
