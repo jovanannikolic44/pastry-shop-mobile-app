@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.pastry_shop_mobile_app.conversion.ModelPreferencesManager;
 import com.example.pastry_shop_mobile_app.models.Basket;
+import com.example.pastry_shop_mobile_app.models.Notification;
 import com.example.pastry_shop_mobile_app.models.User;
 
 import java.util.List;
@@ -40,16 +41,16 @@ public class UserNotification extends AppCompatActivity {
             return;
         }
 
-        List<Basket> orderedItems = ModelPreferencesManager.get("notifications_" + loggedUser.getUsername(), ItemDetails.basketListType);
-        if(orderedItems == null) {
-            Toast.makeText(this, "Nemate narudzbina.", Toast.LENGTH_SHORT).show();
+        List<Notification> allNotifications = ModelPreferencesManager.get("notifications_" + loggedUser.getUsername(), ShowBasket.notificationListType);
+        if(allNotifications == null) {
+            Toast.makeText(this, "Nemate obavestenja.", Toast.LENGTH_SHORT).show();
             return;
         }
 
         TableLayout table = findViewById(R.id.notificationTable);
         TableRow headerRow =  new TableRow(this);
         headerRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        String[] headers = {"Sadrzaj", "Cena"};
+        String[] headers = {"Sadrzaj narudzbine", "Cena"};
         for(int i = 0; i < headers.length; i++) {
             TextView headerView = createTextView(headers[i]);
             headerView.setTextColor(getResources().getColor(R.color.black));
@@ -61,24 +62,16 @@ public class UserNotification extends AppCompatActivity {
         tableLine.setBackgroundColor(getResources().getColor(android.R.color.black));
         table.addView(tableLine);
 
-        float totalSum = 0;
-        String content = "";
-        for (int i = 0; i < orderedItems.size(); i++) {
-            if("".equals(content))
-                content = orderedItems.get(i).getItemName();
-            else
-                content = content + "," + orderedItems.get(i).getItemName();
-            totalSum = totalSum + orderedItems.get(i).getTotalPrice();
-
+        System.out.println("Notification size " + allNotifications.size());
+        for (int i = 0; i < allNotifications.size(); i++) {
+            TableRow oneRow = new TableRow(this);
+            oneRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            TextView itemContent = createTextView(allNotifications.get(i).getItems());
+            TextView itemPrice = createTextView(String.valueOf(allNotifications.get(i).getTotalPrice()));
+            oneRow.addView(itemContent);
+            oneRow.addView(itemPrice);
+            table.addView(oneRow);
         }
-
-        TableRow oneRow = new TableRow(this);
-        oneRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-        TextView itemContent = createTextView(content);
-        TextView sumToPay = createTextView(String.valueOf(totalSum));
-        oneRow.addView(itemContent);
-        oneRow.addView(sumToPay);
-        table.addView(oneRow);
     }
 
     private TextView createTextView(String text) {

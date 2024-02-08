@@ -18,14 +18,20 @@ import android.widget.Toast;
 
 import com.example.pastry_shop_mobile_app.conversion.ModelPreferencesManager;
 import com.example.pastry_shop_mobile_app.models.Basket;
+import com.example.pastry_shop_mobile_app.models.Notification;
 import com.example.pastry_shop_mobile_app.models.User;
+import com.google.gson.reflect.TypeToken;
 
 import org.w3c.dom.Text;
 
+import java.lang.reflect.Type;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ShowBasket extends AppCompatActivity {
+    public static final Type notificationListType = new TypeToken<List<Notification>>(){}.getType();
     private User loggedUser;
+    private int notificationId = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +43,8 @@ public class ShowBasket extends AppCompatActivity {
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
+
+        notificationId = ModelPreferencesManager.contains("notificationId") ? ModelPreferencesManager.get("notificationId", Integer.class) : 1;
 
         loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
         if(loggedUser == null) {
@@ -68,17 +76,15 @@ public class ShowBasket extends AppCompatActivity {
         for (int i = 0; i < orderedItems.size(); i++) {
             TableRow oneRow = new TableRow(this);
             oneRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            for (int j = 0; j < 4; j++) {
-                TextView itemNameData = createTextView(orderedItems.get(i).getItemName());
-                TextView quantityData = createTextView(String.valueOf(orderedItems.get(i).getQuantity()));
-                TextView priceData = createTextView(String.valueOf(orderedItems.get(i).getPrice()));
-                TextView totalPriceData = createTextView(String.valueOf(orderedItems.get(i).getTotalPrice()));
-                oneRow.addView(itemNameData);
-                oneRow.addView(quantityData);
-                oneRow.addView(priceData);
-                oneRow.addView(totalPriceData);
-                totalSum = totalSum + orderedItems.get(i).getTotalPrice();
-            }
+            TextView itemNameData = createTextView(orderedItems.get(i).getItemName());
+            TextView quantityData = createTextView(String.valueOf(orderedItems.get(i).getQuantity()));
+            TextView priceData = createTextView(String.valueOf(orderedItems.get(i).getPrice()));
+            TextView totalPriceData = createTextView(String.valueOf(orderedItems.get(i).getTotalPrice()));
+            oneRow.addView(itemNameData);
+            oneRow.addView(quantityData);
+            oneRow.addView(priceData);
+            oneRow.addView(totalPriceData);
+            totalSum = totalSum + orderedItems.get(i).getTotalPrice();
             table.addView(oneRow);
         }
 
@@ -98,13 +104,38 @@ public class ShowBasket extends AppCompatActivity {
     public void confirmOrder(View view) {
         loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
         if(loggedUser == null) {
+            Toast.makeText(this, "Nije ulogovan korisnik.", Toast.LENGTH_SHORT).show();
             return;
         }
+
         List<Basket> orderedItems = ModelPreferencesManager.get("orders_" + loggedUser.getUsername(), ItemDetails.basketListType);
         if(orderedItems == null) {
+            Toast.makeText(this, "Nema porudzbina.", Toast.LENGTH_SHORT).show();
             return;
         }
-        ModelPreferencesManager.put(orderedItems, "notifications_" + loggedUser.getUsername());
+
+        List<Notification> allNotifications = ModelPreferencesManager.get("notifications_" + loggedUser.getUsername(), ShowBasket.notificationListType);
+        if(allNotifications == null) {
+            allNotifications = new ArrayList<>();
+        }
+
+        // creation of notification
+        float totalSum = 0;
+        String content = "";
+        for (int i = 0; i < orderedItems.size(); i++) {
+            if("".equals(content))
+                content = orderedItems.get(i).getItemName();
+            else
+                content = content + "," + orderedItems.get(i).getItemName();
+            totalSum = totalSum + orderedItems.get(i).getTotalPrice();
+        }
+
+        Notification notification = new Notification(notificationId, content, totalSum);
+        allNotifications.add(notification);
+        ModelPreferencesManager.put(allNotifications, "notifications_" + loggedUser.getUsername());
+
+        notificationId++;
+        ModelPreferencesManager.put(notificationId, "notificationId");
 
         ModelPreferencesManager.deleteKey("orders_" + loggedUser.getUsername());
         Toast.makeText(this, "Potvrdjena porudzbina.", Toast.LENGTH_SHORT).show();
