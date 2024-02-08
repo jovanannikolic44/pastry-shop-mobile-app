@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -124,8 +124,9 @@ public class ItemDetails extends AppCompatActivity {
         if(loggedUser == null)
             return;
 
-        String commentText = findViewById(R.id.comment).toString();
-        if("".equals(commentText)) {
+        EditText commentText = findViewById(R.id.comment);
+        String comment = commentText.getText().toString();
+        if("".equals(comment)) {
             Toast.makeText(this, "Niste uneli komentar.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -134,13 +135,16 @@ public class ItemDetails extends AppCompatActivity {
         if(allComments == null) {
             allComments = new ArrayList<>();
         }
-        Comments newComment = new Comments(commentId, loggedUser.getUsername(), commentText);
+        Comments newComment = new Comments(commentId, loggedUser.getUsername(), comment);
 
         allComments.add(newComment);
         ModelPreferencesManager.put(allComments, itemToShow.getId());
 
         commentId++;
         ModelPreferencesManager.put(commentId, "commentId");
+
+        commentText.setText("");
+        Toast.makeText(this, "Komentar je sacuvan. Osvezite stranicu.", Toast.LENGTH_SHORT).show();
     }
 
     public void showBasket(View view) {
