@@ -61,10 +61,10 @@
         android:layout_above="@id/footer">
 
         <LinearLayout
+            android:id="@+id/itemsLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:id="@+id/itemsLayout">
+            android:orientation="vertical">
         </LinearLayout>
 
     </ScrollView>

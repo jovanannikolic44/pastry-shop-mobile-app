@@ -89,6 +89,9 @@ public class ItemDetails extends AppCompatActivity {
             return;
         }
         loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
+        if(loggedUser == null) {
+            return;
+        }
 
         List<Basket> orderedItems = ModelPreferencesManager.get("orders_" + loggedUser.getUsername(), ItemDetails.basketListType);
         if(orderedItems == null) {

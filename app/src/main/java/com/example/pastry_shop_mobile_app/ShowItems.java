@@ -115,4 +115,9 @@ public class ShowItems extends AppCompatActivity {
             startActivity(intent);
         }
     }
+
+    public void showBasket(View view) {
+        Intent intent = new Intent(this, ShowBasket.class);
+        startActivity(intent);
+    }
 }
