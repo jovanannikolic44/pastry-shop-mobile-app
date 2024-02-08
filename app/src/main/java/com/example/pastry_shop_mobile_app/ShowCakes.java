@@ -97,4 +97,9 @@ public class ShowCakes extends AppCompatActivity {
         Intent intent = new Intent(this, UserProfile.class);
         startActivity(intent);
     }
+
+    public void showNotification(View view) {
+        Intent intent = new Intent(this, UserNotification.class);
+        startActivity(intent);
+    }
 }

@@ -34,7 +34,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="16dp"
-                    android:src="@drawable/ic_bell_24_img" />
+                    android:src="@drawable/ic_bell_24_img"
+                    android:onClick="showNotification"/>
 
                 <ImageView
                     android:layout_width="wrap_content"

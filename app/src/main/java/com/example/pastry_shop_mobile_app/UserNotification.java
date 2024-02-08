@@ -20,17 +20,14 @@ import com.example.pastry_shop_mobile_app.conversion.ModelPreferencesManager;
 import com.example.pastry_shop_mobile_app.models.Basket;
 import com.example.pastry_shop_mobile_app.models.User;
 
-import org.w3c.dom.Text;
-
 import java.util.List;
 
-public class ShowBasket extends AppCompatActivity {
-    private User loggedUser;
+public class UserNotification extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_basket);
+        setContentView(R.layout.activity_user_notification);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
@@ -38,21 +35,21 @@ public class ShowBasket extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
 
-        loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
+        User loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
         if(loggedUser == null) {
             return;
         }
 
-        List<Basket> orderedItems = ModelPreferencesManager.get("orders_" + loggedUser.getUsername(), ItemDetails.basketListType);
+        List<Basket> orderedItems = ModelPreferencesManager.get("notifications_" + loggedUser.getUsername(), ItemDetails.basketListType);
         if(orderedItems == null) {
-            Toast.makeText(this, "Korpa je prazna.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Nemate narudzbina.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        TableLayout table = findViewById(R.id.basketTable);
+        TableLayout table = findViewById(R.id.notificationTable);
         TableRow headerRow =  new TableRow(this);
         headerRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
-        String[] headers = {"Artikal", "Kolicina", "Cena", "Ukupno"};
+        String[] headers = {"Sadrzaj", "Cena"};
         for(int i = 0; i < headers.length; i++) {
             TextView headerView = createTextView(headers[i]);
             headerView.setTextColor(getResources().getColor(R.color.black));
@@ -65,25 +62,23 @@ public class ShowBasket extends AppCompatActivity {
         table.addView(tableLine);
 
         float totalSum = 0;
+        String content = "";
         for (int i = 0; i < orderedItems.size(); i++) {
-            TableRow oneRow = new TableRow(this);
-            oneRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
-            for (int j = 0; j < 4; j++) {
-                TextView itemNameData = createTextView(orderedItems.get(i).getItemName());
-                TextView quantityData = createTextView(String.valueOf(orderedItems.get(i).getQuantity()));
-                TextView priceData = createTextView(String.valueOf(orderedItems.get(i).getPrice()));
-                TextView totalPriceData = createTextView(String.valueOf(orderedItems.get(i).getTotalPrice()));
-                oneRow.addView(itemNameData);
-                oneRow.addView(quantityData);
-                oneRow.addView(priceData);
-                oneRow.addView(totalPriceData);
-                totalSum = totalSum + orderedItems.get(i).getTotalPrice();
-            }
-            table.addView(oneRow);
+            if("".equals(content))
+                content = orderedItems.get(i).getItemName();
+            else
+                content = content + "," + orderedItems.get(i).getItemName();
+            totalSum = totalSum + orderedItems.get(i).getTotalPrice();
+
         }
 
-        TextView sumToPay = findViewById(R.id.sumToPay);
-        sumToPay.setText("Ukupan iznos za uplatu: " + totalSum);
+        TableRow oneRow = new TableRow(this);
+        oneRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        TextView itemContent = createTextView(content);
+        TextView sumToPay = createTextView(String.valueOf(totalSum));
+        oneRow.addView(itemContent);
+        oneRow.addView(sumToPay);
+        table.addView(oneRow);
     }
 
     private TextView createTextView(String text) {
@@ -93,21 +88,6 @@ public class ShowBasket extends AppCompatActivity {
         textView.setPadding(5, 5, 5, 5);
         textView.setGravity(Gravity.CENTER);
         return textView;
-    }
-
-    public void confirmOrder(View view) {
-        loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
-        if(loggedUser == null) {
-            return;
-        }
-        List<Basket> orderedItems = ModelPreferencesManager.get("orders_" + loggedUser.getUsername(), ItemDetails.basketListType);
-        if(orderedItems == null) {
-            return;
-        }
-        ModelPreferencesManager.put(orderedItems, "notifications_" + loggedUser.getUsername());
-
-        ModelPreferencesManager.deleteKey("orders_" + loggedUser.getUsername());
-        Toast.makeText(this, "Potvrdjena porudzbina.", Toast.LENGTH_SHORT).show();
     }
 
     public void logOut(View view) {
