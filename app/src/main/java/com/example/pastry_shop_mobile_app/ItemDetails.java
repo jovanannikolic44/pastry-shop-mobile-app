@@ -35,7 +35,6 @@ public class ItemDetails extends AppCompatActivity {
     private int orderId = 1;
     private int commentId = 1;
     private Item itemToShow;
-    private User loggedUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,7 +98,7 @@ public class ItemDetails extends AppCompatActivity {
             Toast.makeText(this, "Narudzbina sa zadatom kolicinom nije moguca.", Toast.LENGTH_SHORT).show();
             return;
         }
-        loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
+        User loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
         if(loggedUser == null) {
             return;
         }
@@ -121,6 +120,7 @@ public class ItemDetails extends AppCompatActivity {
     }
 
     public void saveComment(View view) {
+        User loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
         if(loggedUser == null)
             return;
 
