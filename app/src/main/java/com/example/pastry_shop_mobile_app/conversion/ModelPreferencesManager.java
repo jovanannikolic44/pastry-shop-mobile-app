@@ -55,4 +55,10 @@ public class ModelPreferencesManager {
         return does_contain;
     }
 
+    public static void deleteKey(String key) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
 }

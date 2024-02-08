@@ -37,7 +37,6 @@ public class ShowBasket extends AppCompatActivity {
             window.setStatusBarColor(getResources().getColor(R.color.black));
         }
 
-        // get orders
         loggedUser = ModelPreferencesManager.get("loggedInUser", User.class);
         if(loggedUser == null) {
             return;
@@ -64,8 +63,8 @@ public class ShowBasket extends AppCompatActivity {
         tableLine.setBackgroundColor(getResources().getColor(android.R.color.black));
         table.addView(tableLine);
 
+        float totalSum = 0;
         for (int i = 0; i < orderedItems.size(); i++) {
-            // row data
             TableRow oneRow = new TableRow(this);
             oneRow.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             for (int j = 0; j < 4; j++) {
@@ -77,9 +76,13 @@ public class ShowBasket extends AppCompatActivity {
                 oneRow.addView(quantityData);
                 oneRow.addView(priceData);
                 oneRow.addView(totalPriceData);
+                totalSum = totalSum + orderedItems.get(i).getTotalPrice();
             }
             table.addView(oneRow);
         }
+
+        TextView sumToPay = findViewById(R.id.sumToPay);
+        sumToPay.setText("Ukupan iznos za uplatu: " + totalSum);
     }
 
     private TextView createTextView(String text) {
@@ -89,5 +92,10 @@ public class ShowBasket extends AppCompatActivity {
         textView.setPadding(5, 5, 5, 5);
         textView.setGravity(Gravity.CENTER);
         return textView;
+    }
+
+    public void confirmOrder(View view) {
+        ModelPreferencesManager.deleteKey("orders_" + loggedUser.getUsername());
+        Toast.makeText(this, "Potvrdjena porudzbina.", Toast.LENGTH_SHORT).show();
     }
 }

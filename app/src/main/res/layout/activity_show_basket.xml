@@ -54,11 +54,39 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@android:color/white"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="60dp"
             android:stretchColumns="*">
         </TableLayout>
 
     </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/acceptOrderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/footer"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/sumToPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ukupan iznos za uplatu: 0"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/centeredButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Potvrdi narudzbinu"
+            android:backgroundTint="@color/buttonColor"
+            android:textColor="@color/white"
+            android:layout_below="@id/sumToPay"
+            android:onClick="confirmOrder"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/footer"
@@ -68,6 +96,7 @@
         android:background="@color/headerColor"
         android:gravity="center"
         android:layout_alignParentBottom="true"
+        android:layout_marginTop="100dp"
         android:padding="16dp">
 
         <TextView
