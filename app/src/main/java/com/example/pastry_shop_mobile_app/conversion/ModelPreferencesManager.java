@@ -11,7 +11,6 @@ import java.lang.reflect.Type;
 public class ModelPreferencesManager {
     private static SharedPreferences preferences;
 
-    // Name of SharedPreferences file
     private static final String preferences_file = "appStorage";
 
     public static SharedPreferences getPreferences() {
@@ -27,20 +26,13 @@ public class ModelPreferencesManager {
     }
 
     public static <T> void put(T object, String key){
-        // convert model object to JSON string
         String json_string = new GsonBuilder().create().toJson(object);
-
-        // save JSON string into SharedPreferences
         preferences.edit().putString(key, json_string).apply();
     }
 
     public static <T> T get(String key, Type classType) {
-        // get JSON string from SharedPreferences
         String saved_json_string = preferences.getString(key, null);
-
-        // convert JSON string to model object
         T object = new GsonBuilder().create().fromJson(saved_json_string, classType);
-
         return object;
     }
 
