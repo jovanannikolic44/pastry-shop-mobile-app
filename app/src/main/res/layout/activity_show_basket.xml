@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/backgroundColor"
+    android:orientation="horizontal">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/headerColor">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="200dp"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:layout_marginLeft="100dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:src="@drawable/ic_home_24_img"
+                    android:onClick="homePage"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_logout_24_img"
+                    android:onClick="logOut"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:scrollbars="vertical"
+        android:layout_below="@id/header"
+        android:layout_above="@id/footer">
+
+        <TableLayout
+            android:id="@+id/basketTable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/white"
+            android:layout_marginTop="60dp"
+            android:stretchColumns="*">
+        </TableLayout>
+
+    </ScrollView>
+
+    <RelativeLayout
+        android:id="@+id/acceptOrderLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/footer"
+        android:layout_centerInParent="true">
+
+        <TextView
+            android:id="@+id/sumToPay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ukupan iznos za uplatu: 0"
+            android:textColor="@color/black"
+            android:layout_centerHorizontal="true"/>
+
+        <Button
+            android:id="@+id/centeredButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Potvrdi narudzbinu"
+            android:backgroundTint="@color/buttonColor"
+            android:textColor="@color/white"
+            android:layout_below="@id/sumToPay"
+            android:onClick="confirmOrder"
+            android:layout_centerHorizontal="true"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@color/headerColor"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="100dp"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="TELEFON: 011/223-233\n E-MAIL: slatki_zalogaji@gmail.com\n BEOGRAD"
+            android:textAlignment="center"
+            android:textColor="@color/white"></TextView>
+
+    </LinearLayout>
+
+</RelativeLayout>
