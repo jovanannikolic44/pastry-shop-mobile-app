@@ -74,7 +74,6 @@ public class ItemDetails extends AppCompatActivity {
             ingredientsLayout.addView(ingredients);
         }
 
-        // prikaz komentara
         List<Comments> allComments = ModelPreferencesManager.get(itemToShow.getId(), ItemDetails.commentsListType);
         if(allComments == null) {
             return;

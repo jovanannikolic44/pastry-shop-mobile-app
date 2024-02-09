@@ -119,7 +119,6 @@ public class ShowBasket extends AppCompatActivity {
             allNotifications = new ArrayList<>();
         }
 
-        // creation of notification
         float totalSum = 0;
         String content = "";
         for (int i = 0; i < orderedItems.size(); i++) {
